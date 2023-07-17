@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+
+    <h2>구월동의 날씨</h2>
+    <span class="aa"></span>
+    <span class="bb">기준, 구월동의 온도는</span>
+    <span class="cc"></span>
+    <span class="dd">입니다.</span>
+
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script>
+    $.getJSON(
+      "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=Bjd%2Fut93iTtqy9dQFc2Vb1Uu9AozqvbIT3KaJ1zK%2B7cr3Z9ZeDsNmyL0kCHo2YcIUXNM8Zl2UXkt%2F3qPWtTV3w%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=20230717&base_time=0600&nx=55&ny=124",
+      function (data) {
+        console.log(data);
+        console.log(data.response.body.items.item[3].obsrValue);
+        let _a = data.response.body.items.item[3].baseDate;
+        let _c = data.response.body.items.item[3].obsrValue;
+
+        $(".aa").text(_a)
+        $(".cc").text(_c)
+      });      
+
+      
+  </script>
+</html>
