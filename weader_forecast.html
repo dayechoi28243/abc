@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+  </head>
+  <style>
+    h2 {
+      padding-top: 50px;
+    }
+  </style>
+  <body>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <div class="container">
+      <h2>구월동의 날씨</h2>
+      <form action="">
+        <label for="datepick">날짜선택</label>
+        <input type="text" id="datepick" />
+        <button>날씨 확인하기</button>
+      </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>시간</th>
+            <th>온도</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <td colspan="3">조회된 날씨가 없습니다.</td>
+          <!-- <tr>
+            <td>20230118</td>
+            <td>0600</td>
+            <td>25</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+  <script>
+    $("#datepick").datepicker({
+      dateFormat: "yymmdd",
+      minDate: "-1d",
+      maxDate: "d",
+    });
+
+    $("#datepick").datepicker("setDate", new Date());
+
+    let initDate = $("#datepick").val();
+
+    $("form").submit(function () {
+      let tDate = $("#datepick").val();
+      weather(tDate);
+      return false; //포멧 기본 작동 안하게 만들기
+    });
+
+    //날씨조회 테이블 생성 함수
+    function weather(initDate) {
+      console.log(initDate);
+      $.ajax({
+        url: `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=Bjd%2Fut93iTtqy9dQFc2Vb1Uu9AozqvbIT3KaJ1zK%2B7cr3Z9ZeDsNmyL0kCHo2YcIUXNM8Zl2UXkt%2F3qPWtTV3w%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${initDate}&base_time=0500&nx=55&ny=127`,
+        success: function (result) {
+          let items = result.response.body.items.item;
+          let filteredItems = items.filter(function (item) {
+            return item.category == "TMP";
+          });
+          makeTable(filteredItems);
+          console.log(filteredItems);
+        },
+      });
+    }
+
+    weather(initDate);
+
+    function makeTable(src) {
+      let tableHTML = "";
+      src.forEach((item) => {
+        tableHTML += `
+        <tr>
+            <td>${item.fcstDate}</td>
+            <td>${item.fcstTime}</td>
+            <td>${item.fcstValue}</td>
+        </tr>
+        `;
+      });
+
+      $("table tbody").html(tableHTML)
+    }
+  </script>
+</html>
