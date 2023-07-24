@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+        <h1>currency exchange</h1>
+      <div class="exchange-box">
+        <div class="dropdown">
+          <button class="dropbtn" id="from-button">USD</button>
+          <div class="dropdown-content" id="from-currency-list">
+            <a href="#">USD</a>
+            <a href="#">KRW</a>
+            <a href="#">JPY</a>
+          </div>
+        </div>
+        <div class="input-area">
+          <input
+            placeholder="환전 할 금액을 입력하세요."
+            type="number"
+            id="from-input"
+            onkeyup="convert1(); totalNum1(); totalNum2();
+        "
+          />
+          <div class="unit-box1">
+            <span class="total-num1"></span><span class="unit1">달러</span>
+          </div>
+        </div>
+      </div>
+
+      <h1>=</h1>
+
+      <div class="exchange-box">
+        <div class="dropdown">
+          <button class="dropbtn" id="to-button">USD</button>
+          <div class="dropdown-content" id="to-currency-list">
+            <a href="#">USD</a>
+            <a href="#">KRW</a>
+            <a href="#">JPY</a>
+          </div>
+        </div>
+        <div class="input-area">
+          <input
+            placeholder="환전된 금액이 표시됩니다."
+            type="number"
+            id="to-input"
+            onkeyup="convert2();  totalNum1(); totalNum2();"
+          />
+          <div class="unit-box2">
+            <span class="total-num2"></span><span class="unit2">달러</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

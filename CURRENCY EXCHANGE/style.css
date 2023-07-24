@@ -1,0 +1,114 @@
+*{padding: 0; margin: 0;
+}
+
+.container{
+  background: url(dark-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  width: 100%; height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap:30px;
+}
+
+h1{
+  color: white;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.exchange-box{
+    width: 400px;
+    border-radius: 21px;
+}
+
+
+/* Style The Dropdown Button */
+.dropbtn {
+    width:100%;
+    background-color: #333333;
+    border-radius: 20px 20px 0 0;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    width:100%;
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    width:100%;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #555555;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 1px rgb(192, 192, 192, 0.4);
+    color:white;
+  }
+
+
+
+  .input-area{
+    width:100%;
+  }
+
+  .input-area input{
+    width: 100%;
+    box-sizing: border-box;
+    text-align: end;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    border-radius: none;
+  }
+
+  .input-area input:focus{
+    outline: none;
+  }
+
+
+  .unit-box1, .unit-box2{
+    color:black;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    text-align: end;
+    padding: 10px;
+    font-size: 20px;
+  }
