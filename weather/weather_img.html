@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body{background-color: rgb(178, 214, 228);
+      text-align: center;
+      
+    }
+    .container{
+      display: flex; align-items: center; 
+      flex-direction: column;
+      background-color: whitesmoke;
+      width: 80%;
+      max-width: 300px;
+      margin: 100px auto;
+      padding: 70px 30px;
+      border-radius: 10px;
+    }
+
+    .img-box .img{display: none;
+        width: 100px; height: 100px;
+    }
+    .img-box img{width: 100%; height: 100%;
+        object-fit: cover;
+    }
+
+  </style>
+  <body>
+    <div class="container">
+    <h2>Today's weather</h2>
+    <div class="img-box">
+        <!-- 없음(0), 비(1), 비/눈(2), 눈(3), 빗방울(5), 빗방울눈날림(6), 눈날림(7)  -->
+      <div class="img img1"><img src="img/sun.png" alt=""></div>
+      <div class="img img2"><img src="img/rain.png" alt=""></div>
+      <div class="img img3"><img src="img/snow.png" alt=""></div>
+    </div>
+    <p class="text">몇도</p>
+  </div>
+  </body>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script>
+    today = new Date();
+    let yy = today.getFullYear();
+    let mm = "0" + (today.getMonth() + 1);
+    let dd = "0" + today.getDate();
+    console.log(yy + mm.substr(-2) + dd.substr(-2));
+    initDate = yy + mm.substr(-2) + dd.substr(-2);
+    
+    let time = today.getHours()
+    let nowTime 
+    console.log(time)
+    if (time % 3 == 0){
+      nowTime = ("0" + time).substr(-2) + "00"
+    } else if (time % 3 == 1){
+      nowTime = ("0" + (time - 1)).substr(-2) + "00"
+    } else if (time % 3 == 2){
+      nowTime = ("0" + (time - 2)).substr(-2) + "00"
+    }
+    console.log("나우타임" + nowTime)
+     
+
+
+    //날씨조회 테이블 생성 함수
+    $.ajax({
+      url: `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=Bjd%2Fut93iTtqy9dQFc2Vb1Uu9AozqvbIT3KaJ1zK%2B7cr3Z9ZeDsNmyL0kCHo2YcIUXNM8Zl2UXkt%2F3qPWtTV3w%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${initDate}&base_time=${nowTime}&nx=55&ny=124`,
+      success: function (result) {
+        console.log(result);
+
+        // 기온 구하기
+        let items = result.response.body.items.item;
+        let temperatures = items[3].obsrValue;
+        console.log(temperatures);
+
+        //강수형태 구하기
+        let weatherType = items[0].obsrValue;
+        console.log(weatherType)
+        //없음(0), 비(1), 비/눈(2), 눈(3), 빗방울(5), 빗방울눈날림(6), 눈날림(7)
+
+        if(weatherType == 0){
+            $(".img").hide()
+            $(".img1").show()
+        } else if (weatherType == 1 || weatherType == 2 || weatherType == 5 || weatherType == 6 ){
+            $(".img").hide()
+            $(".img2").show()
+        } else if (weatherType == 3 || weatherType == 7){
+            $(".img").hide()
+            $(".img3").show()
+        }
+
+
+        $(".text").text(time + "시 기준, 구월동의 현재 기온은 " + temperatures + "도 입니다.")
+      },
+    });
+  </script>
+</html>
